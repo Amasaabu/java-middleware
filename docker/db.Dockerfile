@@ -1,0 +1,8 @@
+FROM mysql:9 AS sql
+ENV MYSQL_DATABASE=middlewaredb
+ENV MYSQL_USER=myuser
+ENV MYSQL_PASSWORD=mypassword
+ENV MYSQL_ROOT_PASSWORD=root
+
+
+EXPOSE 3306
