@@ -1,4 +1,5 @@
 package com.sample.middleware.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Table(indexes =
-        {@Index(name = "merchantId", columnList = "merchantId"), @Index(name = "tag", columnList = "tag"), @Index(name = "originCountry", columnList = "originCountry"), @Index(name = "configurationId", columnList = "configurationId")})
+        {@Index(name = "phone", columnList = "phone")})
 public class MerchantDetails {
     @Id
     @GeneratedValue(
@@ -19,11 +20,14 @@ public class MerchantDetails {
     private String firstName;
     private String lastname;
     private String password;
+    @Column(unique = true, length = 255)
     private  String email;
+    @Column(unique = true, length = 21)
     private String merchantId;
     private String phone;
     private String country;
     private Boolean verified;
+    private Boolean isAdmin=false;
 
 
 }
