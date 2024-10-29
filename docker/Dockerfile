@@ -6,10 +6,6 @@ WORKDIR app
 RUN mvn clean install -DskipTests
 
 FROM openjdk:21-jdk-slim
-ENV DB_USER="root"
-ENV DB_URL="jdbc:mysql://host.docker.internal:3306/middlewaredb"
-ENV DB_PASS=""
-ENV DHMAC_SEC="aG+KbPdSgVkYp3s6v9y\$B&E)H@McQfThWmZq4t7w!z%C*F-JaNdRgUkXn2r5u8x/A"
 COPY --from=build /app/target/middleware-0.0.1-SNAPSHOT.jar /app/middleware.jar
 WORKDIR /app
 EXPOSE 8080
