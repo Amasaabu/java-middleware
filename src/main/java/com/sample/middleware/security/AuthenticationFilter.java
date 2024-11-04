@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
-//grab auth details
+//grab auth detailss
 @AllArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
