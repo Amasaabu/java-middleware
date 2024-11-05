@@ -56,7 +56,7 @@ jobs:
         run: kubectl config view
 
       - name: Deploy via helm
-        uses: 'deliverybot/helm@v4'
+        uses: 'deliverybot/helm@v1'
         with:
           release: 'middleware'
           namespace: 'default'
