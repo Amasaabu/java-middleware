@@ -70,7 +70,7 @@ jobs:
       - name: Verify kubeconfig
         run: kubectl config view
 
-#      - name: Deploy via helm
+#,      - name: Deploy via helm
 #        uses: 'deliverybot/helm@v1'
 #        with:
 #          release: 'middleware'
