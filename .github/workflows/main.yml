@@ -60,24 +60,25 @@ jobs:
           curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
           chmod +x kops |
           sudo mv kops /usr/local/bin/kops
-      - name: install helm
-        run: |
-          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-          chmod 700 get_helm.sh
-          ./get_helm.sh
 
       - name: Get Kube config file
         run: |
           mkdir -p ~/.kube
           kops export kubeconfig ${{env.CLUSTER_NAME}} --admin --state=${{env.CLUSTER_STATE}}
 
+      - name: install helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+      - name: Trigger hem install
+        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml finchinfra
 #      - name: export kube config file
 #        run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 #      - name: Verify kubeconfig
 #        run: kubectl config view
 
-      - name: Trigger hem install
-        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml finchinfra
+
 
 #,      - name: Deploy via helm
 #        uses: 'deliverybot/helm@v1'
