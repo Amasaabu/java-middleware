@@ -36,7 +36,6 @@ jobs:
           context: .
           file: docker/Dockerfile
           push: true
-          no-cache: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO}}:latest
 
 
