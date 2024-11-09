@@ -75,7 +75,9 @@ jobs:
           chmod 700 get_helm.sh
           ./get_helm.sh
       - name: Trigger hem install
-        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml --set image.tag=${{ env.IMAGE_TAG }} finchinfra
+        run: |
+          echo "Image Tag: ${{ env.IMAGE_TAG }}"
+          helm upgrade middleware -f finchinfra/middlewarevalues.yaml --set image.tag=${{ env.IMAGE_TAG }} finchinfra
 #      - name: export kube config file
 #        run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 #      - name: Verify kubeconfig
