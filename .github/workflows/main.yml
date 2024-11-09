@@ -44,7 +44,11 @@ jobs:
           repository: 'amasaabu/finchinfra'  # Replace with the actual username and repo
           path: 'finchinfra'  # Use a different path to avoid overwriting files
           token: ${{ secrets.FINCH_INFRA_PAT }}
-
+      - name: Install kops
+        run: |
+          curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+          chmod +x kops |
+          sudo mv kops /usr/local/bin/kops
       - name: Get Kube config file
         run: |
           mkdir -p ~/.kube
@@ -55,4 +59,12 @@ jobs:
       - name: Verify kubeconfig
         run: kubectl config view
 
-
+      - name: Deploy via helm
+        uses: 'deliverybot/helm@v1'
+        with:
+          release: 'middleware'
+          namespace: 'default'
+          chart: './finchinfra'
+          value-files: "finchinfra/middlewarevalues.yaml"  # Reference the file in the other repo
+        env:
+          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
