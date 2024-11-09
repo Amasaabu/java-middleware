@@ -44,6 +44,15 @@ jobs:
           repository: 'amasaabu/finchinfra'  # Replace with the actual username and repo
           path: 'finchinfra'  # Use a different path to avoid overwriting files
           token: ${{ secrets.FINCH_INFRA_PAT }}
+
+      - name: 'Use AWS Token provider'
+        uses: aws-actions/configure-aws-credentials@v4
+        permissions:
+          id-token: write # This is required for requesting the JWT
+          contents: rea
+          with:
+            aws-region: us-east-1
+
       - name: Install kops
         run: |
           curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
@@ -59,4 +68,12 @@ jobs:
       - name: Verify kubeconfig
         run: kubectl config view
 
-
+#      - name: Deploy via helm
+#        uses: 'deliverybot/helm@v1'
+#        with:
+#          release: 'middleware'
+#          namespace: 'default'
+#          chart: './finchinfra'
+#          value-files: "finchinfra/middlewarevalues.yaml"  # Reference the file in the other repo
+#        env:
+#          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
