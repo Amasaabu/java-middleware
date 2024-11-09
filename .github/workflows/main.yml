@@ -52,9 +52,6 @@ jobs:
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::451613728407:role/github-role
-
-
-
       - name: Install kops
         run: |
           curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
