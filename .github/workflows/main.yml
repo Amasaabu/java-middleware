@@ -59,12 +59,4 @@ jobs:
       - name: Verify kubeconfig
         run: kubectl config view
 
-      - name: Deploy via helm
-        uses: 'deliverybot/helm@v1'
-        with:
-          release: 'middleware'
-          namespace: 'default'
-          chart: './finchinfra'
-          value-files: "finchinfra/middlewarevalues.yaml"  # Reference the file in the other repo
-        env:
-          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
+
