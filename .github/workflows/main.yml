@@ -43,7 +43,7 @@ jobs:
         with:
           repository: 'amasaabu/finchinfra'  # Replace with the actual username and repo
           path: 'finchinfra'  # Use a different path to avoid overwriting files
-          token: '${{ secrets.FINCH_INFRA_PAT }}'
+          token: ${{ secrets.FINCH_INFRA_PAT }}
 
       - name: Get Kube config file
         run: |
@@ -60,7 +60,7 @@ jobs:
         with:
           release: 'middleware'
           namespace: 'default'
-          chart: .'/finchinfra'
+          chart: './finchinfra'
           value-files: "finchinfra/middlewarevalues.yaml"  # Reference the file in the other repo
         env:
           KUBECONFIG_FILE: ${{ secrets.KUBECONFIG }}
