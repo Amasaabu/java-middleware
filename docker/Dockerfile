@@ -1,8 +1,9 @@
 FROM  ubuntu:20.04 AS build
 RUN apt-get update -y && apt-get install maven -y
 RUN apt install openjdk-21-jdk-headless -y
-COPY pom.xml .
 WORKDIR app
+COPY pom.xml .
+
 RUN mvn clean install -DskipTests
 COPY . .
 
