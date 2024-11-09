@@ -44,3 +44,15 @@ jobs:
           repository: 'amasaabu/finchinfra'  # Replace with the actual username and repo
           path: 'finchinfra'  # Use a different path to avoid overwriting files
           token: ${{ secrets.FINCH_INFRA_PAT }}
+
+      - name: Get Kube config file
+        run: |
+          mkdir -p ~/.kube
+          kops export kubeconfig ${{env.CLUSTER_NAME}} --admin --state=${{env.CLUSTER_STATE}}
+
+      - name: export kube config file
+        run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
+      - name: Verify kubeconfig
+        run: kubectl config view
+
+
