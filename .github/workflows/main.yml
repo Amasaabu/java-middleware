@@ -6,7 +6,9 @@ on:
 env:
   CLUSTER_NAME: devops.abubakaramasa.com
   CLUSTER_STATE: ${{secrets.TEST_STATE_FILE}}
-
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read
 jobs:
   BUILD_AND_PUBLISH_TO_DOCKERHUB:
     runs-on: ubuntu-latest
@@ -47,11 +49,10 @@ jobs:
 
       - name: 'Use AWS Token provider'
         uses: aws-actions/configure-aws-credentials@v4
-        permissions:
-          id-token: write # This is required for requesting the JWT
-          contents: rea
-          with:
-            aws-region: us-east-1
+        with:
+          aws-region: us-east-1
+
+
 
       - name: Install kops
         run: |
