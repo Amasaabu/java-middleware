@@ -36,7 +36,7 @@ jobs:
           context: .
           file: docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO}}:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO}}:${{ env.IMAGE_TAG }}
 
 
   HELM_DEPLOY:
@@ -75,7 +75,7 @@ jobs:
           chmod 700 get_helm.sh
           ./get_helm.sh
       - name: Trigger hem install
-        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml --set image.tag=${{ env.IMAGE_TAG }} \ finchinfra
+        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml --set image.tag=${{ env.IMAGE_TAG }} finchinfra
 #      - name: export kube config file
 #        run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 #      - name: Verify kubeconfig
