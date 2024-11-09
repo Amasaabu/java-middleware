@@ -64,6 +64,7 @@ jobs:
         run: |
           mkdir -p ~/.kube
           kops export kubeconfig ${{env.CLUSTER_NAME}} --admin --state=${{env.CLUSTER_STATE}}
+          cat ~/.kube/config
 
       - name: export kube config file
         run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
@@ -73,12 +74,11 @@ jobs:
       - name: install helm
         run: |
           curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-          ls -l
           chmod 700 get_helm.sh
           ./get_helm.sh
 
       - name: Trigger hem install
-        run: helm upgrade finchinfra/middlewarevalues.yaml finchinfra
+        run: helm upgrade middleware -f finchinfra/middlewarevalues.yaml finchinfra
 
 #,      - name: Deploy via helm
 #        uses: 'deliverybot/helm@v1'
