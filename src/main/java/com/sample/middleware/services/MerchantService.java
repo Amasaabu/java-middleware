@@ -32,7 +32,7 @@ public class MerchantService {
         return merchantDetailsRepositoryTable.save(merchantdet);
     }
 
-    public Object getMercahntDetails(String merchantId) {
+    public MerchantDetails getMercahntDetails(String merchantId) {
         var merchant = merchantDetailsRepositoryTable.findByMerchantId(merchantId);
         if (merchant.isEmpty()) {
             //throw invalid exceprion

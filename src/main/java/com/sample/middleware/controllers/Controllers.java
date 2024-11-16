@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
 import com.sample.middleware.models.Request.MerchantRequest;
 import com.sample.middleware.models.Responses.CustomResponse;
+import com.sample.middleware.services.APIKeyService;
 import com.sample.middleware.services.MerchantService;
 import com.sample.middleware.utils.Responses;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/merchant")
 @AllArgsConstructor
 public class Controllers {
-
+    APIKeyService apiKeyService;
     MerchantService merchantService;
     @PostMapping(path = "/signup")
     public ResponseEntity<CustomResponse> createUser (HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
@@ -30,6 +31,19 @@ public class Controllers {
         var resp = new CustomResponse();
          resp.setCode("200");
          resp.setMessage("Successful");
+//        resp.setMessage(merchant);
+//        String merchantJson = new Gson().toJson(merchant);
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
+    }
+
+    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
+        var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
+        var merchant = merchantService.getMercahntDetails(concreteId);
+        var APIKey = apiKeyService.createAPIKEY(merchant);
+        var resp = new CustomResponse();
+        resp.setMessage(APIKey);
+        resp.setCode("200");
+        resp.setMessage("Successful");
 //        resp.setMessage(merchant);
 //        String merchantJson = new Gson().toJson(merchant);
         return ResponseEntity.status(HttpStatus.OK).body(resp);
