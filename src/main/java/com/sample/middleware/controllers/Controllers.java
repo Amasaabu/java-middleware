@@ -38,6 +38,7 @@ public class Controllers {
     @PostMapping(path = "/generatekey")
     public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("COncreteId" + concreteId);
         var merchant = merchantService.getMercahntDetails(concreteId);
         var APIKey = apiKeyService.createAPIKEY(merchant);
         var resp = new CustomResponse();
