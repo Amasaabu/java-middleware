@@ -36,7 +36,7 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
     @PostMapping(path = "/generatekey")
-    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
+    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req) throws JsonProcessingException {
         System.out.println("GENERATIG NEW API KEY");
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("COncreteId" + concreteId);

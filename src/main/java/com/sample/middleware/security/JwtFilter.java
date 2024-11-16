@@ -48,7 +48,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 .build().verify(token).getSubject();
         var userDb = merchantDetailsRepositoryTable.findByMerchantId(user);
         if (userDb.isEmpty()) {
-            System.out.println("Hererereerxxxxxxxxxx");
             throw new BadCredentialsException("");
         }
         var currUser = userDb.get();
