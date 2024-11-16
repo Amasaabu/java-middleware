@@ -19,6 +19,7 @@ public class MerchantDetails {
     private String firstName;
     private String lastname;
     private String password;
+    @Column(unique = true)
     private  String email;
     private String merchantId;
     private String phone;

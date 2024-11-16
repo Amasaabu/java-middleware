@@ -7,8 +7,8 @@ import java.util.Random;
 
 @Component
 public class Utils {
-    public String generateId(String idPrefix) {
-        int length = 10;
+    public String generateId(String idPrefix, int length) {
+//        int length = 10;
         StringBuilder string = new StringBuilder();
         Random random = new Random();
         string.append(idPrefix.toString());

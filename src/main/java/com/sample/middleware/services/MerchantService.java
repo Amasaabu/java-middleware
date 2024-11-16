@@ -23,7 +23,7 @@ public class MerchantService {
         merchantdet.setCountry(merchantRequest.getCountry());
         merchantdet.setPhone(merchantRequest.getPhone());
         merchantdet.setEmail(merchantRequest.getEmail());
-        merchantdet.setMerchantId(utils.generateId("MCT"));
+        merchantdet.setMerchantId(utils.generateId("MCT", 10));
         merchantdet.setPassword(merchantRequest.getPassword());
         merchantdet.setVerified(false);
         //encrypt password
