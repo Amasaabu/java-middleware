@@ -45,7 +45,6 @@ public class Controllers {
         var resp = new CustomResponse();
         resp.setMessage(APIKey);
         resp.setCode("200");
-        resp.setMessage("Successful");
 //        resp.setMessage(merchant);
 //        String merchantJson = new Gson().toJson(merchant);
         return ResponseEntity.status(HttpStatus.OK).body(resp);
