@@ -27,6 +27,7 @@ public class APIKey {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "merchant", referencedColumnName = "id")
     private MerchantDetails merchant;
+    private boolean isActive;
     @CreatedDate
     protected Date createdDate;
     @UpdateTimestamp

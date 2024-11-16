@@ -19,6 +19,7 @@ public class APIKeyService {
         APIKey apiKey = new APIKey();
         apiKey.setValue(utils.generateId("API-", 20));
         apiKey.setMerchant(merchant);
+        apiKey.setActive(true);
 
         return apiKeyRepository.save(apiKey);
     }
