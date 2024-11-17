@@ -50,6 +50,9 @@ public class Controllers {
 //        String merchantJson = new Gson().toJson(merchant);
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
+    //DEACTIVATE KEY
+
+    //DELETE KEY
 
     @GetMapping(path = "/merchant")
     public  ResponseEntity<CustomResponse> retrivemerchant  (HttpServletRequest req) {
