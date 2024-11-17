@@ -33,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
     // List of URLs to exclude from JWT filtering
     private static final List<String> EXCLUDED_URLS = Arrays.asList(
             "/api/merchant/signup",
-            "/api/public/*"  // Example of wildcard usage
+            "/api/merchant/test"
     );
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

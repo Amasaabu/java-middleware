@@ -33,6 +33,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try {
             MerchantDetails user = new ObjectMapper().readValue(request.getInputStream(), MerchantDetails.class);
             Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+            System.out.println(user.getPassword());
             return authenticationManager.authenticate(auth);
         } catch (IOException e) {
             throw new RuntimeException(e);

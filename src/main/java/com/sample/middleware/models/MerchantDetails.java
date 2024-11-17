@@ -25,6 +25,7 @@ public class MerchantDetails {
     private String phone;
     private String country;
     private Boolean verified;
+    private Boolean isAdmin=false;
 
 
 }
