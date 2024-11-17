@@ -11,6 +11,8 @@ import com.sample.middleware.utils.Utils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 @AllArgsConstructor
 public class APIKeyService {
@@ -31,6 +33,57 @@ public class APIKeyService {
         apiKey.setActive(true);
 
         return apiKeyRepository.save(apiKey);
+    }
+
+    public boolean validateAPIKey(String apiKey, String merchantIdFromContext) {
+        //retrive key
+        var APIKey = apiKeyRepository.findByValue(apiKey);
+        if (APIKey.isEmpty()) {
+            System.out.println("Error, no API Key Found");
+            return false;
+        }
+        //validate if API key is active
+        //ensure merchant id is equal to api key provided
+        if (!(APIKey.get().getMerchant().getMerchantId().equals(merchantIdFromContext))) {
+            return false;
+        }
+//        if (APIKey.get().getMerchant().getMerchantId().equals( merchant.getMerchantId())) {
+//            System.out.println("Invalid API key");
+//            return false;
+//        }
+        return true;
+    }
+
+    public boolean deactivateKey (String value){
+        try {
+            var key = apiKeyRepository.findByValue(value);
+            if (key.isEmpty()) {
+                throw new BadRequest("FATAL: Unnable to deactivate key");
+            }
+            key.get().setActive(false);
+            apiKeyRepository.save(key.get());
+            return true;
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return false;
+        }
+
+
+    }
+    public boolean deleteKey (String value){
+        try {
+            var key = apiKeyRepository.findByValue(value);
+            if (key.isEmpty()) {
+                throw new BadRequest("FATAL: Unnable to delete key");
+            }
+            apiKeyRepository.delete(key.get());
+            return true;
+        } catch (Exception e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return false;
+        }
+
+
     }
 
 

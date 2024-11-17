@@ -9,4 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class APIKeyRequest {
     private String name;
+    private String value;
 }

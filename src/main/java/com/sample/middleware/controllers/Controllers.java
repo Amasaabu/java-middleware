@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/merchant")
 @AllArgsConstructor
 public class Controllers {
-    APIKeyService apiKeyService;
+
     MerchantService merchantService;
     @PostMapping(path = "/signup")
     public ResponseEntity<CustomResponse> createUser (HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
@@ -36,23 +36,7 @@ public class Controllers {
 //        String merchantJson = new Gson().toJson(merchant);
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
-    @PostMapping(path = "/generatekey")
-    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req, @Valid @RequestBody APIKeyRequest request) throws JsonProcessingException {
-        System.out.println("GENERATIG NEW API KEY");
-        var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println("COncreteId" + concreteId);
-        var APIKey = apiKeyService.createAPIKEY(concreteId, request);
-        APIKey.setMerchant(null);
-        var resp = new CustomResponse();
-        resp.setMessage(APIKey);
-        resp.setCode("200");
-//        resp.setMessage(merchant);
-//        String merchantJson = new Gson().toJson(merchant);
-        return ResponseEntity.status(HttpStatus.OK).body(resp);
-    }
-    //DEACTIVATE KEY
 
-    //DELETE KEY
 
     @GetMapping(path = "/merchant")
     public  ResponseEntity<CustomResponse> retrivemerchant  (HttpServletRequest req) {
