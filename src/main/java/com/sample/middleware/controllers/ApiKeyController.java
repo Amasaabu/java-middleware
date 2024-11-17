@@ -45,7 +45,7 @@ public class ApiKeyController {
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         var apikeyValidation = apiKeyService.validateAPIKey(request.getValue(), concreteId);
         if (!apikeyValidation) {
-            throw  new BadRequest("API key could not be validated to match the user");
+            throw  new BadRequest("API key could not be validated");
         }
         var result = apiKeyService.deactivateKey(request.getValue());
         var resp = new CustomResponse();
@@ -61,7 +61,7 @@ public class ApiKeyController {
     }
     //Get keys by a merchant
     @GetMapping(path = "/get")
-    public ResponseEntity<CustomResponse> getKey(HttpServletRequest req, @Valid @RequestBody APIKeyRequest request) {
+    public ResponseEntity<CustomResponse> getKey(HttpServletRequest req) {
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         var apikeys = apiKeyService.getAllAPIKey(concreteId);
 
@@ -76,7 +76,7 @@ public class ApiKeyController {
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         var apikeyValidation = apiKeyService.validateAPIKey(request.getValue(), concreteId);
         if (!apikeyValidation) {
-            throw new BadRequest("API key could not be validated to match the user");
+            throw new BadRequest("API key could not be validated");
         }
         var result = apiKeyService.deleteKey(request.getValue());
         var resp = new CustomResponse();
