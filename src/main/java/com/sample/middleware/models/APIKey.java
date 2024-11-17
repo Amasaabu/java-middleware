@@ -28,9 +28,12 @@ public class APIKey {
     @JoinColumn(name = "merchant", referencedColumnName = "id")
     private MerchantDetails merchant;
     private boolean isActive;
+    @Column(unique = true)
+    private String name;
     @CreatedDate
     protected Date createdDate;
     @UpdateTimestamp
     private Date lastUpdatedOn;
+    private Date ExpireKey;
 
 }

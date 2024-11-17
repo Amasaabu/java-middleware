@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
+import com.sample.middleware.models.Request.APIKeyRequest;
 import com.sample.middleware.models.Request.MerchantRequest;
 import com.sample.middleware.models.Responses.CustomResponse;
 import com.sample.middleware.services.APIKeyService;
@@ -36,12 +37,12 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
     @PostMapping(path = "/generatekey")
-    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req) throws JsonProcessingException {
+    public ResponseEntity<CustomResponse> createAPIKey(HttpServletRequest req, @Valid @RequestBody APIKeyRequest request) throws JsonProcessingException {
         System.out.println("GENERATIG NEW API KEY");
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("COncreteId" + concreteId);
         var merchant = merchantService.getMercahntDetails(concreteId);
-        var APIKey = apiKeyService.createAPIKEY(merchant);
+        var APIKey = apiKeyService.createAPIKEY(merchant, request);
         var resp = new CustomResponse();
         resp.setMessage(APIKey);
         resp.setCode("200");
