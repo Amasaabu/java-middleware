@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 public class Controllers {
 
     MerchantService merchantService;
-    @PostMapping(path = "/signup")
+    @PostMapping(path = "/signups")
     public ResponseEntity<CustomResponse> createUser (HttpServletRequest req, @Valid @RequestBody MerchantRequest request) throws JsonProcessingException {
         var merchant = merchantService.saveNewMerchant(request);
         var resp = new CustomResponse();
