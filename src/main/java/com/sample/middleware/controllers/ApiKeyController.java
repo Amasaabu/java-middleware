@@ -59,15 +59,26 @@ public class ApiKeyController {
 
         return ResponseEntity.status(HttpStatus.OK).body(resp);
     }
+    //Get keys by a merchant
+    @GetMapping(path = "/get")
+    public ResponseEntity<CustomResponse> getKey(HttpServletRequest req, @Valid @RequestBody APIKeyRequest request) {
+        var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
+        var apikeys = apiKeyService.getAllAPIKey(concreteId);
+
+        var resp = new CustomResponse();
+        resp.setMessage(apikeys);
+        resp.setCode("200");
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
+    }
     //DELETE KEY
-    @PostMapping(path = "/delete")
+    @DeleteMapping(path = "/delete")
     public ResponseEntity<CustomResponse> deleteKey(HttpServletRequest req, @Valid @RequestBody APIKeyRequest request) {
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         var apikeyValidation = apiKeyService.validateAPIKey(request.getValue(), concreteId);
         if (!apikeyValidation) {
             throw new BadRequest("API key could not be validated to match the user");
         }
-        var result = apiKeyService.deactivateKey(request.getValue());
+        var result = apiKeyService.deleteKey(request.getValue());
         var resp = new CustomResponse();
         if (!result) {
             resp.setCode("400");

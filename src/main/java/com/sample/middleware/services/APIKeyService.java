@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -67,6 +68,14 @@ public class APIKeyService {
             System.out.println(Arrays.toString(e.getStackTrace()));
             return false;
         }
+
+
+    }
+    public List<APIKey> getAllAPIKey (String concreteId) {
+
+            var merchant = merchantDetailsRepositoryTable.findByMerchantId(concreteId);
+            if (merchant.isEmpty()) throw new BadRequest("Merchant not found");
+            return apiKeyRepository.findByMerchant(merchant.get());
 
 
     }
