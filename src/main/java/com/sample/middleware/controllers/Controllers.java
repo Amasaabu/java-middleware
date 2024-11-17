@@ -41,8 +41,7 @@ public class Controllers {
         System.out.println("GENERATIG NEW API KEY");
         var concreteId = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println("COncreteId" + concreteId);
-        var merchant = merchantService.getMercahntDetails(concreteId);
-        var APIKey = apiKeyService.createAPIKEY(merchant, request);
+        var APIKey = apiKeyService.createAPIKEY(concreteId, request);
         var resp = new CustomResponse();
         resp.setMessage(APIKey);
         resp.setCode("200");
