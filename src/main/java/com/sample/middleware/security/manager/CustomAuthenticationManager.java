@@ -33,6 +33,6 @@ public class CustomAuthenticationManager implements AuthenticationManager {
 //            throw new BadCredentialsException("Password wrong");
 //        }
         //ensure credentials is not pased arround, pass null
-        return new UsernamePasswordAuthenticationToken(userFromDb.get().getMerchantId(), password);
+        return new UsernamePasswordAuthenticationToken(userFromDb.get().getMerchantId(), "");
     }
 }
