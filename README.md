@@ -12,8 +12,10 @@ View and track transactions being processed.
 Additional Components in the Ecosystem
 This repository focuses on the Middleware Service, but the complete system includes:
 
-Routing Service: Routes customer transaction requests to the appropriate services.
+Routing Service: Routes customer transaction requests to the appropriate services. 
+Link to Roting Service (https://github.com/Amasaabu/router/tree/main)
 Processor Service: Handles customer requests for processing transactions.
+Link to processing service (https://github.com/Amasaabu/processot/tree/main)
 Features
 Merchant Authentication
 
